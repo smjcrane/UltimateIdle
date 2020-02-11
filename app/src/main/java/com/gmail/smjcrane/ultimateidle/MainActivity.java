@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements Runnable{
 
     private void initialiseFactIndex(){
         factIndex = 0;
-        while (factIndex  + 1< Milestones.numbers.length && Milestones.numbers[factIndex+1] < value){
+        while (factIndex  + 1< Milestones.numbers.length && Milestones.numbers[factIndex+1] <= value){
             factIndex++;
         }
         textFact.setText(getString(R.string.more) + Milestones.strings[factIndex]);
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements Runnable{
     protected void onResume(){
         super.onResume();
         preference = getPreferences(MODE_PRIVATE);
-        value = preference.getLong(valueKey, 10L);
+        value = preference.getLong(valueKey, 100L);
         initialiseFactIndex();
         handler = new Handler();
         timer = new Timer();
@@ -79,10 +79,10 @@ public class MainActivity extends AppCompatActivity implements Runnable{
             timer.cancel();
             timer.purge();
         } else {
-            value = (long) (value * 1.1);
+            value = (long) (value * 1.01);
         }
         textProgress.setText(Long.toString(value));
-        if (factIndex  + 1< Milestones.numbers.length && Milestones.numbers[factIndex+1] < value){
+        if (factIndex  + 1< Milestones.numbers.length && Milestones.numbers[factIndex+1] <= value){
             factIndex++;
             textFact.setText(getString(R.string.more) + Milestones.strings[factIndex]);
         }

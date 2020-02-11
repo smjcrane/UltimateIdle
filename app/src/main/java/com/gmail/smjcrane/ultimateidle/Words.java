@@ -7,7 +7,6 @@ public class Words {
             "Sensational!",
             "You’re doing fine!",
             "Super!",
-            "Good thinking!",
             "That’s right!",
             "Good going!",
             "That’s good!",
@@ -58,6 +57,7 @@ public class Words {
             "Nothing can stop you!",
             "Coming along nicely!",
             "So big!",
-            "What a huge number!"
+            "What a huge number!",
+            "Amazing!"
     };
 }
