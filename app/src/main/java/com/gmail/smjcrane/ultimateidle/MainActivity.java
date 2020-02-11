@@ -54,7 +54,15 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         timer.purge();
     }
 
-    public void run(){
+    @Override
+    protected void onSaveInstanceState (Bundle outState){
+        super.onSaveInstanceState(outState);
+        preference.edit().putInt(valueKey, value).apply();
+        timer.cancel();
+        timer.purge();
+    }
+
+        public void run(){
         Log.i("MAIN", "ticking with " + value);
         value = (int) (value * 1.1);
         textProgress.setText(Integer.toString(value));

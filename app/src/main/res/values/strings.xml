@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">UltimateIdle</string>
+    <string name="app_shortname">Idle</string>
 </resources>

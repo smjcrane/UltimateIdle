@@ -53,7 +53,6 @@ public class EncouragementView extends View {
         myStaticLayout.draw(canvas);
         canvas.restore();
 
-        postInvalidateDelayed(700);
+        postInvalidateDelayed(500);
     }
-
 }
