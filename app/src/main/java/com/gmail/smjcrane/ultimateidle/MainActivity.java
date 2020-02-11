@@ -17,9 +17,10 @@ public class MainActivity extends AppCompatActivity implements Runnable{
     public static final String prefs = "ULTIMATEIDLEPREFS";
     public static final String valueKey = "VALUEKEY";
 
-    private TextView textProgress;
+    private TextView textProgress, textFact;
     private SharedPreferences preference;
-    private int value;
+    private long value;
+    private int factIndex;
     private Timer timer;
     private Handler handler;
 
@@ -29,13 +30,22 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         setContentView(R.layout.activity_main);
 
         textProgress = findViewById(R.id.progress);
+        textFact = findViewById(R.id.fact);
+    }
+
+    private void initialiseFactIndex(){
+        factIndex = 0;
+        while (factIndex  + 1< Milestones.numbers.length && Milestones.numbers[factIndex+1] < value){
+            factIndex++;
+        }
+        textFact.setText(getString(R.string.more) + Milestones.strings[factIndex]);
     }
 
     protected void onResume(){
         super.onResume();
         preference = getPreferences(MODE_PRIVATE);
-        value = preference.getInt(valueKey, 10);
-
+        value = preference.getLong(valueKey, 10L);
+        initialiseFactIndex();
         handler = new Handler();
         timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -49,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements Runnable{
     @Override
     protected void onPause(){
         super.onPause();
-        preference.edit().putInt(valueKey, value).apply();
+        preference.edit().putLong(valueKey, value).apply();
         timer.cancel();
         timer.purge();
     }
@@ -57,14 +67,24 @@ public class MainActivity extends AppCompatActivity implements Runnable{
     @Override
     protected void onSaveInstanceState (Bundle outState){
         super.onSaveInstanceState(outState);
-        preference.edit().putInt(valueKey, value).apply();
+        preference.edit().putLong(valueKey, value).apply();
         timer.cancel();
         timer.purge();
     }
 
         public void run(){
         Log.i("MAIN", "ticking with " + value);
-        value = (int) (value * 1.1);
-        textProgress.setText(Integer.toString(value));
+        if (value > Long.MAX_VALUE / 1.1){
+            value = Long.MAX_VALUE;
+            timer.cancel();
+            timer.purge();
+        } else {
+            value = (long) (value * 1.1);
+        }
+        textProgress.setText(Long.toString(value));
+        if (factIndex  + 1< Milestones.numbers.length && Milestones.numbers[factIndex+1] < value){
+            factIndex++;
+            textFact.setText(getString(R.string.more) + Milestones.strings[factIndex]);
+        }
     }
 }

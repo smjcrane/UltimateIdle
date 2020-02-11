@@ -56,6 +56,8 @@ public class Words {
             "You make it look easy!",
             "Terrific!",
             "Nothing can stop you!",
-            "Coming along nicely!"
+            "Coming along nicely!",
+            "So big!",
+            "What a huge number!"
     };
 }
