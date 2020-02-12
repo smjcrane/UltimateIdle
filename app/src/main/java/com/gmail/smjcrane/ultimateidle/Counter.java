@@ -67,7 +67,7 @@ public class Counter extends ArrayAdapter<Integer> {
         }
 
         int val = digitValues.get(position);
-        boolean blurred = position > incrementPosition  + 2;
+        boolean blurred = position < incrementPosition - 2;
 
         TextSwitcher digit = view.findViewById(R.id.digit);
         ImageView blurImage = view.findViewById(R.id.blur);
@@ -93,11 +93,11 @@ public class Counter extends ArrayAdapter<Integer> {
         if (digitValues.size() < otherDigits.length){
             return false;
         }
-        for (int i = otherDigits.length - 1; i >= 0; i--){
-            if (digitValues.get(i) == otherDigits[i]){
+        for (int i = 0; i < otherDigits.length; i++){
+            if (digitValues.get(otherDigits.length - 1 - i) == otherDigits[i]){
                 continue;
             }
-            return digitValues.get(i) > otherDigits[i];
+            return digitValues.get(otherDigits.length - 1 - i) > otherDigits[i];
         }
         return false;
     }

@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements Runnable{
             public void run() {
                 handler.post(MainActivity.this);
             }
-        }, 0, 1000);
+        }, 0, 100);
     }
 
     @Override
