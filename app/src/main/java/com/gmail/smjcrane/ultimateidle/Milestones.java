@@ -1,7 +1,5 @@
 package com.gmail.smjcrane.ultimateidle;
 
-import android.util.Pair;
-
 public class Milestones {
 
     public static Long[] numbers = new Long[]{
@@ -47,6 +45,6 @@ public class Milestones {
             "birds in the world",
             "trees in the world",
             "ants in the world",
-            "numbers I can count.  So I'll stop."
+            "positive values a java long can take"
     };
 }
