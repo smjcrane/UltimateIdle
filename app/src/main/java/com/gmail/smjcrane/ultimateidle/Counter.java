@@ -18,7 +18,7 @@ public class Counter extends ArrayAdapter<Integer> {
     public Counter(Context context, List<Integer> ints){
         super(context, R.layout.digit);
         digitValues = ints;
-        incrementPosition = Math.max(ints.size() - 4, 0);
+        incrementPosition = Math.max(ints.size() - 3, 0);
     }
 
     public String getDigitString(){
@@ -37,7 +37,7 @@ public class Counter extends ArrayAdapter<Integer> {
             position++;
             if (position == digitValues.size()){
                 digitValues.add(0);
-                incrementPosition = Math.max(digitValues.size() - 4, 0);
+                incrementPosition = Math.max(digitValues.size() - 3, 0);
             }
             old = digitValues.get(position);
         }
@@ -67,7 +67,7 @@ public class Counter extends ArrayAdapter<Integer> {
         }
 
         int val = digitValues.get(position);
-        boolean blurred = position < incrementPosition - 2;
+        boolean blurred = false;//position < incrementPosition;
 
         TextSwitcher digit = view.findViewById(R.id.digit);
         ImageView blurImage = view.findViewById(R.id.blur);
