@@ -36,14 +36,13 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         digitGrid = findViewById(R.id.digitGrid);
     }
 
-    /* TODO
     private void initialiseFactIndex(){
         factIndex = 0;
-        while (factIndex  + 1< Milestones.numbers.length && Milestones.numbers[factIndex+1] <= value){
+        while (factIndex  + 1< Milestones.milestones.length && counter.isGreaterThan(Milestones.milestones[factIndex + 1].digits)){
             factIndex++;
         }
-        textFact.setText(getString(R.string.more) + Milestones.strings[factIndex]);
-    }*/
+        textFact.setText(getString(R.string.more) + Milestones.milestones[factIndex].description);
+    }
 
     protected void onResume(){
         super.onResume();
@@ -59,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         } else {
             counter.setDigits(digits);
         }
-        //initialiseFactIndex();
+        initialiseFactIndex();
         handler = new Handler();
         timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -89,10 +88,9 @@ public class MainActivity extends AppCompatActivity implements Runnable{
     public void run(){
         Log.i("MAIN", "ticking with " + counter.getDigitString());
         counter.increment();
-        /* TODO
-        if (factIndex  + 1< Milestones.numbers.length && Milestones.numbers[factIndex+1] <= value){
+        if (factIndex  + 1< Milestones.milestones.length && counter.isGreaterThan(Milestones.milestones[factIndex + 1].digits)){
             factIndex++;
-            textFact.setText(getString(R.string.more) + Milestones.strings[factIndex]);
-        }*/
+            textFact.setText(getString(R.string.more) + Milestones.milestones[factIndex].description);
+        }
     }
 }

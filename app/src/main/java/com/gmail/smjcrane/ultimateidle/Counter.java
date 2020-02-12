@@ -1,7 +1,6 @@
 package com.gmail.smjcrane.ultimateidle;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import java.util.List;
 public class Counter extends ArrayAdapter<Integer> {
     private List<Integer> digitValues;
     private int incrementPosition;
-    private int invalidatePosition;
 
     public Counter(Context context, List<Integer> ints){
         super(context, R.layout.digit);
@@ -44,7 +42,6 @@ public class Counter extends ArrayAdapter<Integer> {
             old = digitValues.get(position);
         }
         digitValues.set(position, old + 1);
-        invalidatePosition = position;
         notifyDataSetChanged();
     }
 
@@ -64,15 +61,15 @@ public class Counter extends ArrayAdapter<Integer> {
                 LayoutInflater vi;
                 vi = LayoutInflater.from(getContext());
                 view = vi.inflate(R.layout.digit, null);
+                TextSwitcher digit = view.findViewById(R.id.digit);
+                digit.setInAnimation(getContext(), R.anim.slide_down_in);
+                digit.setOutAnimation(getContext(), R.anim.slide_down_out);
         }
 
         int val = digitValues.get(position);
         boolean blurred = position > incrementPosition  + 2;
 
         TextSwitcher digit = view.findViewById(R.id.digit);
-        digit.setInAnimation(getContext(), R.anim.slide_down_in);
-        digit.setOutAnimation(getContext(), R.anim.slide_down_out);
-
         ImageView blurImage = view.findViewById(R.id.blur);
 
         if (blurred){
@@ -87,6 +84,22 @@ public class Counter extends ArrayAdapter<Integer> {
         }
 
         return view;
+    }
+
+    public boolean isGreaterThan(int[] otherDigits){
+        if (digitValues.size() > otherDigits.length){
+            return true;
+        }
+        if (digitValues.size() < otherDigits.length){
+            return false;
+        }
+        for (int i = otherDigits.length - 1; i >= 0; i--){
+            if (digitValues.get(i) == otherDigits[i]){
+                continue;
+            }
+            return digitValues.get(i) > otherDigits[i];
+        }
+        return false;
     }
 
 }
